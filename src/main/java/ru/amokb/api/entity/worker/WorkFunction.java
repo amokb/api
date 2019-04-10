@@ -1,188 +1,201 @@
 package ru.amokb.api.entity.worker;
 
+import java.sql.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import ru.amokb.api.annotation.Comment;
 import ru.amokb.api.entity.BaseEntity;
 import ru.amokb.api.entity.lpu.MisLpu;
 import ru.amokb.api.entity.workcalendar.WorkCalendar;
 import ru.amokb.api.entity.worker.voc.VocWorkFunction;
 
-import javax.persistence.*;
-import java.sql.Date;
-
-/**
- * Место работы
- */
-@Entity
 @Comment("Рабочая функция")
-@Table(schema="SQLUser")
+@Entity
+@Table(schema = "SQLUser")
 abstract public class WorkFunction extends BaseEntity {
 
-	/** Дата начала работы */
-	@Comment("Дата начала работы")
-	public Date getStartDate() {return theStartDate;}
-	public void setStartDate(Date aStartDate) {theStartDate = aStartDate;}
-	/** Дата начала работы */
-	private Date theStartDate;
+    private Date startDate;
+    private Date finishDate;
+    private WorkCalendar workCalendar;
+    private VocWorkFunction workFunction;
+    private Boolean isArchival;
+    private MisLpu lpu;
+    private String code;
+    private Integer registrationInterval;
+    private Boolean isInstrumentNurse;
+    private Boolean isNoViewRemoteUser;
+    private Boolean isDirectionNoTime = false;
+    private String promedCodelpuSection;
+    private String promedCodeWorkStaff;
+    private String comment;
 
-	/** Дата окончания работы */
-	@Comment("Дата окончания работы")
-	public Date getFinishDate() {return theFinishDate;}
-	public void setFinishDate(Date aFinishDate) {theFinishDate = aFinishDate;}
-	/** Дата окончания работы */
-	private Date theFinishDate;
+    @Comment("Дата начала работы")
+    public Date getStartDate() {
+        return startDate;
+    }
 
-	/** Рабочий календарь */
-	@Comment("Рабочий календарь")
-	@OneToOne
-	@Deprecated
-	public WorkCalendar getWorkCalendar() {
-		return theWorkCalendar;
-	}
-	public void setWorkCalendar(WorkCalendar aWorkCalendars) {
-		theWorkCalendar = aWorkCalendars;
-	}
-	/** Рабочий календарь */
-	private WorkCalendar theWorkCalendar;
-  
-    /** Наименование */
-	@Comment("Наименование")
-	@Transient
-	public String getName() {
-		StringBuilder ret = new StringBuilder() ;
-		if (theWorkFunction!=null) ret.append(theWorkFunction.getName()) ;
-		return ret.toString() ;
-	}
-	
-	
-	@Transient
+    public void setStartDate(Date aStartDate) {
+        startDate = aStartDate;
+    }
+
+    @Comment("Дата окончания работы")
+    public Date getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(Date aFinishDate) {
+        finishDate = aFinishDate;
+    }
+
+    @Comment("Рабочий календарь")
+    @OneToOne
+    @Deprecated
+    public WorkCalendar getWorkCalendar() {
+        return workCalendar;
+    }
+
+    public void setWorkCalendar(WorkCalendar aWorkCalendars) {
+        workCalendar = aWorkCalendars;
+    }
+
+    @Comment("Наименование")
+    @Transient
+    public String getName() {
+        StringBuilder ret = new StringBuilder();
+        if (workFunction != null) ret.append(workFunction.getName());
+        return ret.toString();
+    }
+
+    @Transient
     @Comment("Информация")
-	public String getWorkFunctionInfo() {
-		return getName() ;
-	}
+    public String getWorkFunctionInfo() {
+        return getName();
+    }
 
-	/** Функция */
-	@Comment("Функция")
-	@OneToOne
-	public VocWorkFunction getWorkFunction() {
-		return theWorkFunction;
-	}
+    @Comment("Функция")
+    @OneToOne
+    public VocWorkFunction getWorkFunction() {
+        return workFunction;
+    }
 
-	public void setWorkFunction(VocWorkFunction aWorkFunction) {
-		theWorkFunction = aWorkFunction;
-	}
+    public void setWorkFunction(VocWorkFunction aWorkFunction) {
+        workFunction = aWorkFunction;
+    }
 
-	/** Функция */
-	private VocWorkFunction theWorkFunction;
-	
-	/** Поместить в архив */
-	@Comment("Поместить в архив")
-	public Boolean getArchival() {
-		return theArchival;
-	}
+    @Comment("Поместить в архив")
+    public Boolean getArchival() {
+        return isArchival;
+    }
 
-	public void setArchival(Boolean aArchival) {
-		theArchival = aArchival;
-	}
+    public void setArchival(Boolean aArchival) {
+        isArchival = aArchival;
+    }
 
-	/** Поместить в архив */
-	private Boolean theArchival;
-	
-	@Transient
-	public String getWorkerLpuInfo() {
-		return "";
-	}
-	@Transient
-	public String getInfo() {
-		return "" ;
-	}
-	@Transient
-	public boolean getViewDirect() {
-		return true ;
-	}
-	@Transient
-	public String getWorkerInfo() {
-		return "" ;
-	}
-	
-	/** ЛПУ */
-	@Comment("ЛПУ")
-	@ManyToOne
-	public MisLpu getLpu() {return theLpu;}
-	public void setLpu(MisLpu aLpu) {theLpu = aLpu;}
-	/** ЛПУ */
-	private MisLpu theLpu;
-	/** Код специалиста */
-	@Comment("Код специалиста")
-	public String getCode() {return theCode;}
-	public void setCode(String aCode) {theCode = aCode;}
+    @Transient
+    public String getWorkerLpuInfo() {
+        return "";
+    }
 
-	/** Код специалиста */
-	private String theCode;
-	
-	/** Интервал разрешенной регистрации */
-	@Comment("Интервал разрешенной регистрации")
-	public Integer getRegistrationInterval() {return theRegistrationInterval;}
-	public void setRegistrationInterval(Integer aRegistrationInterval) {theRegistrationInterval = aRegistrationInterval;}
+    @Transient
+    public String getInfo() {
+        return "";
+    }
 
-	/** Интервал разрешенной регистрации */
-	private Integer theRegistrationInterval;
-	/** Операционная сестра */
-	@Comment("Операционная сестра")
-	public Boolean getIsInstrumentNurse() {
-		return theIsInstrumentNurse;
-	}
+    @Transient
+    public boolean getViewDirect() {
+        return true;
+    }
 
-	public void setIsInstrumentNurse(Boolean aOperationSister) {
-		theIsInstrumentNurse = aOperationSister;
-	}
+    @Transient
+    public String getWorkerInfo() {
+        return "";
+    }
 
-	/** Операционная сестра */
-	private Boolean theIsInstrumentNurse;
-	
-	/** Комментарий */
-	@Comment("Комментарий")
-	public String getComment() {
-		return theComment;
-	}
+    @Comment("ЛПУ")
+    @ManyToOne
+    public MisLpu getLpu() {
+        return lpu;
+    }
 
-	public void setComment(String aComment) {
-		theComment = aComment;
-	}
+    public void setLpu(MisLpu aLpu) {
+        lpu = aLpu;
+    }
 
-	/** Комментарий */
-	private String theComment;
-	/** Не показывать удаленным пользователям */
-	@Comment("Не показывать удаленным пользователям")
-	public Boolean getIsNoViewRemoteUser() {return theIsNoViewRemoteUser;}
-	public void setIsNoViewRemoteUser(Boolean aNoViewRemoteUser) {theIsNoViewRemoteUser = aNoViewRemoteUser;}
+    @Comment("Код специалиста")
+    public String getCode() {
+        return code;
+    }
 
-	/** Не показывать удаленным пользователям */
-	private Boolean theIsNoViewRemoteUser;
+    public void setCode(String aCode) {
+        code = aCode;
+    }
 
+    @Comment("Интервал разрешенной регистрации")
+    public Integer getRegistrationInterval() {
+        return registrationInterval;
+    }
 
-	private String promedCode_workstaff;
-	@Comment("Код рабочего места в промеде")
-	public String getPromedCode_workstaff() {
-		return promedCode_workstaff;
-	}
-	public void setPromedCode_workstaff(String promedCode_workstaff) {
-		this.promedCode_workstaff = promedCode_workstaff;
-	}
+    public void setRegistrationInterval(Integer aRegistrationInterval) {
+        registrationInterval = aRegistrationInterval;
+    }
 
-	private String promedCode_lpusection;
-	@Comment("Код рабочего места в промеде")
-	public String getPromedCode_lpusection() {
-		return promedCode_lpusection;
-	}
-	public void setPromedCode_lpusection(String promedCode_lpusection) {
-		this.promedCode_lpusection = promedCode_lpusection;
-	}
-	/** Разрешено записывать на дату без указания времени */
-	@Comment("Разрешено записывать на дату без указания времени")
-	@Column(nullable=false, columnDefinition="boolean default false")
-	public Boolean getIsDirectionNoTime() {return theIsDirectionNoTime;}
-	public void setIsDirectionNoTime(Boolean aIsDirectionNoTime) {theIsDirectionNoTime = aIsDirectionNoTime;}
-	/** Разрешено записывать на дату без указания времени */
-	private Boolean theIsDirectionNoTime=false ;
+    @Comment("Операционная сестра")
+    public Boolean getIsInstrumentNurse() {
+        return isInstrumentNurse;
+    }
 
+    public void setIsInstrumentNurse(Boolean aOperationSister) {
+        isInstrumentNurse = aOperationSister;
+    }
+
+    @Comment("Комментарий")
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String aComment) {
+        comment = aComment;
+    }
+
+    @Comment("Не показывать удаленным пользователям")
+    public Boolean getIsNoViewRemoteUser() {
+        return isNoViewRemoteUser;
+    }
+
+    public void setIsNoViewRemoteUser(Boolean aNoViewRemoteUser) {
+        isNoViewRemoteUser = aNoViewRemoteUser;
+    }
+
+    @Comment("Код рабочего места в промеде")
+    public String getPromedCodeWorkStaff() {
+        return promedCodeWorkStaff;
+    }
+
+    public void setPromedCodeWorkStaff(String promedCodeWorkStaff) {
+        this.promedCodeWorkStaff = promedCodeWorkStaff;
+    }
+
+    @Comment("Код рабочего места в промеде")
+    public String getPromedCodelpuSection() {
+        return promedCodelpuSection;
+    }
+
+    public void setPromedCodelpuSection(String promedCodelpuSection) {
+        this.promedCodelpuSection = promedCodelpuSection;
+    }
+
+    @Comment("Разрешено записывать на дату без указания времени")
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    public Boolean getIsDirectionNoTime() {
+        return isDirectionNoTime;
+    }
+
+    public void setIsDirectionNoTime(Boolean aIsDirectionNoTime) {
+        isDirectionNoTime = aIsDirectionNoTime;
+    }
 }

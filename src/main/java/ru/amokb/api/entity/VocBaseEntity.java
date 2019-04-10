@@ -1,31 +1,30 @@
 package ru.amokb.api.entity;
 
-import ru.amokb.api.annotation.Comment;
-
 import javax.persistence.MappedSuperclass;
 
-//import org.hibernate.annotations.Cache;
-//import org.hibernate.annotations.CacheConcurrencyStrategy;
+import ru.amokb.api.annotation.Comment;
 
-/**
- * Справочник
- */
 @MappedSuperclass
-public class VocBaseEntity extends  BaseEntity {
+public class VocBaseEntity extends BaseEntity {
 
-    /** Название */
+    private String code;
+    private String name;
+
     @Comment("Наименование")
-    public String getName() { return theName ; }
-    public void setName(String aName) { theName = aName ; }
+    public String getName() {
+        return name;
+    }
 
-    /** Внешний код */
+    public void setName(String aName) {
+        name = aName;
+    }
+
     @Comment("Внешний код")
-    public String getCode() {return theCode;}
-    public void setCode(String aCode) {theCode = aCode;}
+    public String getCode() {
+        return code;
+    }
 
-    /** Внешний код */
-    private String theCode;
-    /** Название */
-    private String theName ;
-
+    public void setCode(String aCode) {
+        code = aCode;
+    }
 }

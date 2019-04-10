@@ -1,39 +1,47 @@
 package ru.amokb.api.entity.medcase;
 
+import java.sql.Date;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import ru.amokb.api.annotation.Comment;
 import ru.amokb.api.entity.BaseEntity;
 import ru.amokb.api.entity.patient.Patient;
 
-import javax.persistence.*;
-import java.sql.Date;
-
-/**
- * Случай медицинского обслуживания
- */
 @Entity
-@Table(schema="SQLUser")
+@Table(schema = "SQLUser")
 abstract public class MedCase extends BaseEntity {
 
-	/** Пациент */
-	@Comment("Пациент")
-	@ManyToOne
-	public Patient getPatient() {return thePatient;}
-	public void setPatient(Patient aNewProperty) {thePatient = aNewProperty;}
-	private Patient thePatient;
+    private Patient patient;
+    private Date dateStart;
+    private Boolean isUpload = false;
 
-	/**Дата начала */
-	@Comment("Дата начала")
-	public Date getDateStart() {return theDateStart;}
-	public void setDateStart(Date aNewProperty) {theDateStart = aNewProperty;}
-	private Date theDateStart;
-	
+    @Comment("Пациент")
+    @ManyToOne
+    public Patient getPatient() {
+        return patient;
+    }
 
-	private Boolean isUpload=false;
-	@Comment("Выгружено")
-	public Boolean getUpload() {
-		return isUpload;
-	}
-	public void setUpload(Boolean upload) {
-		isUpload = upload;
-	}
+    public void setPatient(Patient aNewProperty) {
+        patient = aNewProperty;
+    }
+
+    @Comment("Дата начала")
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date aNewProperty) {
+        dateStart = aNewProperty;
+    }
+
+    @Comment("Выгружено")
+    public Boolean getUpload() {
+        return isUpload;
+    }
+
+    public void setUpload(Boolean upload) {
+        isUpload = upload;
+    }
 }

@@ -1,31 +1,33 @@
 package ru.amokb.api.entity.workcalendar;
 
-import ru.amokb.api.annotation.Comment;
-import ru.amokb.api.entity.BaseEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * Тип резерва обслуживания
- * @author azviagin
- *
- */
-@Comment("Тип резерва обслуживания")
+import ru.amokb.api.annotation.Comment;
+import ru.amokb.api.entity.BaseEntity;
+
 @Entity
-@Table(schema="SQLUser")
+@Table(schema = "SQLUser")
 public class VocServiceReserveType extends BaseEntity {
-	/** Название */
-	@Comment("Наименование")
-	public String getName() { return theName ; }
-	public void setName(String aName) { theName = aName ; }
-	private String theName ;
 
-	/** Внешний код */
-	@Comment("Внешний код")
-	public String getCode() {return theCode;}
-	public void setCode(String aCode) { theCode = aCode;}
-	private String theCode;
+    private String name;
+    private String code;
 
+    @Comment("Наименование")
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String aName) {
+        name = aName;
+    }
+
+    @Comment("Внешний код")
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String aCode) {
+        code = aCode;
+    }
 }

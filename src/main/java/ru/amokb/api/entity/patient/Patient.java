@@ -1,92 +1,113 @@
 package ru.amokb.api.entity.patient;
 
-import ru.amokb.api.entity.BaseEntity;
-
-import javax.persistence.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import javax.persistence.Entity;
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
+
+import ru.amokb.api.entity.BaseEntity;
 
 @Entity
 public class Patient extends BaseEntity {
 
-    /** Телефон */
-    public String getPhone() {return thePhone;}
-    public void setPhone(String aPhone) {thePhone = aPhone;}
-    /** Телефон */
-    private String thePhone;
+    private String phone;
+    private String notice;
+    private String patientSync;
+    private String firstname;
+    private String lastname;
+    private String middlename;
+    private Date birthdate;
+    private String snils;
+    private String commonNumber;
 
-    /** Синхронизация адресов */
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String aPhone) {
+        phone = aPhone;
+    }
+
     @PostPersist
     @PostUpdate
     protected void syncAddresses() {
         // адрес проживания пустой
     }
 
-    /** Имя */
-    public String getFirstname() { return theFirstname ; }
-    public void setFirstname(String aFirstname) { theFirstname = aFirstname ; }
+    public String getFirstname() {
+        return firstname;
+    }
 
-    /** Фамилия */
-    public String getLastname() { return theLastname ; }
-    public void setLastname(String aLastname) { theLastname = aLastname ; }
+    public void setFirstname(String aFirstname) {
+        firstname = aFirstname;
+    }
 
-    /** Отчество */
-    public String getMiddlename() { return theMiddlename ; }
-    public void setMiddlename(String aMiddlename) { theMiddlename = aMiddlename ; }
+    public String getLastname() {
+        return lastname;
+    }
 
-    /** Дата рождения */
-    public Date getBirthday() { return theBirthdate ; }
-    public void setBirthday(Date aBirthdate) { theBirthdate = aBirthdate ; }
+    public void setLastname(String aLastname) {
+        lastname = aLastname;
+    }
 
-    /** Примечание */
-    public String getNotice() {return theNotice;}
-    public void setNotice(String aNotice) {theNotice = aNotice;}
-    private String theNotice;
+    public String getMiddlename() {
+        return middlename;
+    }
 
-    /** Информация о пациенте */
+    public void setMiddlename(String aMiddlename) {
+        middlename = aMiddlename;
+    }
+
+    public Date getBirthday() {
+        return birthdate;
+    }
+
+    public void setBirthday(Date aBirthdate) {
+        birthdate = aBirthdate;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String aNotice) {
+        notice = aNotice;
+    }
+
     public String getPatientInfo() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
         StringBuilder sb = new StringBuilder();
-        add(sb, theLastname,"");
-        add(sb, theFirstname," ");
-        add(sb, theMiddlename," ");
-        if(getBirthday()!=null) {
+        add(sb, lastname, "");
+        add(sb, firstname, " ");
+        add(sb, middlename, " ");
+        if (getBirthday() != null) {
             add(sb, " г.р.", " ");
-            add(sb, simpleDateFormat.format(getBirthday())," ") ;
+            add(sb, simpleDateFormat.format(getBirthday()), " ");
         }
         return sb.toString();
     }
-    private String thePatientSync;
+
     public String getPatientSync() {
-        return thePatientSync;
+        return patientSync;
     }
 
     public void setPatientSync(String aPatientSync) {
-        thePatientSync = aPatientSync;
+        patientSync = aPatientSync;
     }
 
     private static void add(StringBuilder aSb, String aStr, String aPre) {
-        if(aStr!=null && !aStr.equals("")) {
-            if(aSb.length()!=0) aSb.append(aPre) ;
-            aSb.append(aStr) ;
+        if (aStr != null && !aStr.equals("")) {
+            if (aSb.length() != 0) aSb.append(aPre);
+            aSb.append(aStr);
         }
     }
 
-    /** Имя */
-    private String theFirstname ;
-    /** Фамилия */
-    private String theLastname ;
-    /** Отчества */
-    private String theMiddlename ;
-    /** Дата рождения */
-    private Date theBirthdate ;
-    /** Пол */
+    public String getCommonNumber() {
+        return commonNumber;
+    }
 
-    /** СНИЛС */
-    private String theSnils ;
-
-    /** Единый номер застрахованного */
-    public String getCommonNumber() {return theCommonNumber;}
-    public void setCommonNumber(String aNumber) {theCommonNumber = aNumber;}
-    private String theCommonNumber;
+    public void setCommonNumber(String aNumber) {
+        commonNumber = aNumber;
+    }
 }

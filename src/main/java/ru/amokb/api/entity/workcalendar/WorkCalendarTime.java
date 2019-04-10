@@ -1,154 +1,153 @@
 package ru.amokb.api.entity.workcalendar;
 
+import java.sql.Date;
+import java.sql.Time;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import ru.amokb.api.annotation.Comment;
 import ru.amokb.api.entity.BaseEntity;
 import ru.amokb.api.entity.medcase.MedCase;
 import ru.amokb.api.entity.patient.Patient;
 
-import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
-
-/**
- * Рабочее время
- * @author azviagin
- *
- */
-@Comment("Рабочее время")
 @Entity
-@Table(schema="SQLUser")
+@Table(schema = "SQLUser")
 public class WorkCalendarTime extends BaseEntity {
 
-	/** Удаленная запись */
-	@Comment("Удаленная запись")
-	public Boolean getIsDeleted() {return theIsDeleted;}
-	public void setIsDeleted(Boolean aIsDeleted) {theIsDeleted = aIsDeleted;}
-	/** Удаленная запись */
-	private Boolean theIsDeleted ;
+    private Boolean isDeleted;
+    private WorkCalendarDay workCalendarDay;
+    private Time timeFrom;
+    private Patient prePatient;
+    private Time createTimePreRecord;
+    private Date createDatePreRecord;
+    private String createPreRecord;
+    private VocServiceReserveType reserveType;
+    private String phone;
+    private String patientComment;
+    private MedCase medCase;
+    private Boolean additional;
+    private String prePatientInfo;
 
-	
-	/** Рабочий день */
-	@Comment("Рабочий день")
-	@ManyToOne
-	public WorkCalendarDay getWorkCalendarDay() {
-		return theWorkCalendarDay;
-	}
-	public void setWorkCalendarDay(WorkCalendarDay aWorkCalendarDay) {
-		theWorkCalendarDay = aWorkCalendarDay;
-	}
-	/** Рабочий день */
-	private WorkCalendarDay theWorkCalendarDay;
-	
-	/** Время начала */
-	@Comment("Время начала")
-	public Time getTimeFrom() {
-		return theTimeFrom;
-	}
-	public void setTimeFrom(Time aTimeFrom) {
-		theTimeFrom = aTimeFrom;
-	}
-	/** Время начала */
-	private Time theTimeFrom;
-	
-	/** СМО */
-	@Comment("СМО")
-	@OneToOne
-	public MedCase getMedCase() {
-		return theMedCase;
-	}
-	public void setMedCase(MedCase aMedCase) {
-		theMedCase = aMedCase;
-	}
-	/** СМО */
-	private MedCase theMedCase;
-	
-	/** Добавочное время */
-	@Comment("Добавочное время")
-	public Boolean getAdditional() {
-		return theAdditional;
-	}
-	public void setAdditional(Boolean aAdditional) {
-		theAdditional = aAdditional;
-	}
-	/** Добавочное время */
-	private Boolean theAdditional;
+    @Comment("Удаленная запись")
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
 
-	/** Пациент информации */
-	@Comment("Пациент информации")
-	public String getPrePatientInfo() {
-		return thePrePatientInfo;
-	}
-	public void setPrePatientInfo(String aPatientInfo) {
-		thePrePatientInfo = aPatientInfo;
-	}
-	/** Пациент информации */
-	private String thePrePatientInfo;
-	
-	/** Пациент пред.пациента */
-	@Comment("Пациент пред.пациента")
-	@OneToOne
-	public Patient getPrePatient() {return thePrePatient;}
-	public void setPrePatient(Patient aPrePatient) {thePrePatient = aPrePatient;}
-	/** Пациент пред.пациента */
-	private Patient thePrePatient;
+    public void setIsDeleted(Boolean aIsDeleted) {
+        isDeleted = aIsDeleted;
+    }
 
-	
-	/** Пользователь, создавший пред.запись */
-	@Comment("Пользователь, создавший пред.запись")
-	public String getCreatePreRecord() {
-		return theCreatePreRecord;
-	}
+    @Comment("Рабочий день")
+    @ManyToOne
+    public WorkCalendarDay getWorkCalendarDay() {
+        return workCalendarDay;
+    }
 
-	public void setCreatePreRecord(String aCreatePreRecord) {
-		theCreatePreRecord = aCreatePreRecord;
-	}
-	
-	/** Дата создания предварительной записи */
-	@Comment("Дата создания предварительной записи")
-	public Date getCreateDatePreRecord() {return theCreateDatePreRecord;}
-	public void setCreateDatePreRecord(Date aCreateDatePreRecord) {theCreateDatePreRecord = aCreateDatePreRecord;}
+    public void setWorkCalendarDay(WorkCalendarDay aWorkCalendarDay) {
+        workCalendarDay = aWorkCalendarDay;
+    }
 
-	/** Время создания предварительной записи */
-	@Comment("Время создания предварительной записи")
-	public Time getCreateTimePreRecord() {
-		return theCreateTimePreRecord;
-	}
-	public void setCreateTimePreRecord(Time aCreateTimePreRecord) {
-		theCreateTimePreRecord = aCreateTimePreRecord;
-	}
+    @Comment("Время начала")
+    public Time getTimeFrom() {
+        return timeFrom;
+    }
 
-	/** Время создания предварительной записи */
-	private Time theCreateTimePreRecord;
-	/** Дата создания предварительной записи */
-	private Date theCreateDatePreRecord;
-	/** Пользователь, создавший пред.запись */
-	private String theCreatePreRecord;
-	
-	/** Резерв времени */
-	@Comment("Резерв времени")
-	@OneToOne
-	public VocServiceReserveType getReserveType() {
-		return theReserveType;
-	}
-	public void setReserveType(VocServiceReserveType aReserveType) {
-		theReserveType = aReserveType;
-	}
-	/** Резерв времени */
-	private VocServiceReserveType theReserveType;
-	
-	/** Номер телефона */
-	@Comment("Номер телефона")
-	public String getPhone() {return thePhone;}
-	public void setPhone(String aPhone) {thePhone = aPhone;}
+    public void setTimeFrom(Time aTimeFrom) {
+        timeFrom = aTimeFrom;
+    }
 
-	/** Номер телефона */
-	private String thePhone;
-	
-	/**
-	 * Примечание пациента (при записи)*/
-	@Comment("Примечание пациента")
-	public String getPatientComment() {return thePatientComment;}
-	public void setPatientComment(String aPatientComment) {thePatientComment = aPatientComment;}
-	/** Примечание пациента */
-	private String thePatientComment ;
+    @Comment("СМО")
+    @OneToOne
+    public MedCase getMedCase() {
+        return medCase;
+    }
+
+    public void setMedCase(MedCase aMedCase) {
+        medCase = aMedCase;
+    }
+
+    @Comment("Добавочное время")
+    public Boolean getAdditional() {
+        return additional;
+    }
+
+    public void setAdditional(Boolean aAdditional) {
+        additional = aAdditional;
+    }
+
+    @Comment("Пациент информации")
+    public String getPrePatientInfo() {
+        return prePatientInfo;
+    }
+
+    public void setPrePatientInfo(String aPatientInfo) {
+        prePatientInfo = aPatientInfo;
+    }
+
+    @Comment("Пациент пред.пациента")
+    @OneToOne
+    public Patient getPrePatient() {
+        return prePatient;
+    }
+
+    public void setPrePatient(Patient aPrePatient) {
+        prePatient = aPrePatient;
+    }
+
+    @Comment("Пользователь, создавший пред.запись")
+    public String getCreatePreRecord() {
+        return createPreRecord;
+    }
+
+    public void setCreatePreRecord(String aCreatePreRecord) {
+        createPreRecord = aCreatePreRecord;
+    }
+
+    @Comment("Дата создания предварительной записи")
+    public Date getCreateDatePreRecord() {
+        return createDatePreRecord;
+    }
+
+    public void setCreateDatePreRecord(Date aCreateDatePreRecord) {
+        createDatePreRecord = aCreateDatePreRecord;
+    }
+
+    @Comment("Время создания предварительной записи")
+    public Time getCreateTimePreRecord() {
+        return createTimePreRecord;
+    }
+
+    public void setCreateTimePreRecord(Time aCreateTimePreRecord) {
+        createTimePreRecord = aCreateTimePreRecord;
+    }
+
+    @Comment("Резерв времени")
+    @OneToOne
+    public VocServiceReserveType getReserveType() {
+        return reserveType;
+    }
+
+    public void setReserveType(VocServiceReserveType aReserveType) {
+        reserveType = aReserveType;
+    }
+
+    @Comment("Номер телефона")
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String aPhone) {
+        phone = aPhone;
+    }
+
+    @Comment("Примечание пациента")
+    public String getPatientComment() {
+        return patientComment;
+    }
+
+    public void setPatientComment(String aPatientComment) {
+        patientComment = aPatientComment;
+    }
 }
